@@ -39,6 +39,10 @@ String.prototype.countWords = function () {
 
     return words.length;
 };
+
+// String.prototype.countWords = function() {
+//     return this.split(' ').length;
+//   };
 console.log("string.prototype - 3");
 console.log("Hello World".countWords());
 
@@ -62,6 +66,10 @@ String.prototype.isPalindrome = function () {
     let reversedStr = straightStr.split("").reverse().join("");
     return straightStr === reversedStr;
 };
+
+// String.prototype.isPalindrome = function() {
+//   return this.toLowerCase() === this.split("").reverse().join("").toLowerCase();
+// };
 console.log("string.prototype - 5");
 console.log("racecar".isPalindrome());
 console.log("Hello".isPalindrome());
@@ -82,6 +90,14 @@ Number.prototype.isPrime = function () {
         }
     return true;
 };
+
+// Number.prototype.isPrime = function() {
+//     for(let i = 2; i < this; i++) {
+//       if(this % i === 0) return false;
+//     }
+//     return this > 1;
+//   };
+
 console.log("number.prototype - 1");
 console.log((7).isPrime());
 console.log((4).isPrime());
@@ -110,9 +126,7 @@ console.log("-----------------------------");
 Number.prototype.findFactors = function () {
     let factors = [];
     for (let i = 1; i <= this; i++) {
-        if (this % i === 0) {
-            factors.push(i);
-        }
+        if (this % i === 0) factors.push(i);
     }
     return factors;
 };
@@ -127,9 +141,7 @@ console.log("-----------------------------");
 
 Number.prototype.isPerfectSquare = function () {
     for (let i = 1; i <= this; i++) {
-        if (this / i === i) {
-            return true;
-        }
+        if (this / i === i) return true;
     }
     return false;
 };
@@ -143,7 +155,7 @@ console.log("-----------------------------");
 // Example: (6).isOdd() should return false.
 
 Number.prototype.isOdd = function () {
-    return this % 2 === 0;
+    return this % 2 !== 0;
 };
 console.log("number.prototype - 5");
 console.log((5).isOdd());
@@ -159,9 +171,7 @@ console.log("-----------------------------");
 Array.prototype.findMax = function () {
     let maxNum = this[0];
     for (let i = 0; i < this.length; i++) {
-        if (maxNum < this[i]) {
-            maxNum = this[i];
-        }
+        if (maxNum < this[i]) maxNum = this[i];
     }
     return maxNum;
 };
@@ -176,9 +186,7 @@ console.log("----------------------------");
 Array.prototype.findMin = function () {
     let minNum = this[0];
     for (let i = 0; i < this.length; i++) {
-        if (minNum > this[i]) {
-            minNum = this[i];
-        }
+        if (minNum > this[i]) minNum = this[i];
     }
     return minNum;
 };
@@ -216,6 +224,19 @@ Array.prototype.removeDuplicates = function () {
     }
     return result;
 };
+
+// Array.prototype.removeDuplicates = function() {
+//     const unique = [];
+//     const seen = {};
+//     for(let i = 0; i < this.length; i++) {
+//       if(!seen[this[i]]) {
+//         unique.push(this[i]);
+//         seen[this[i]] = true;
+//       }
+//     }
+//     return unique;
+//   };
+
 console.log("array.prototype - 4");
 console.log(["a", "b", "b", "c"].removeDuplicates());
 console.log([1, 2, 2, 3].removeDuplicates());
@@ -225,11 +246,12 @@ console.log("-------------------------");
 // Example: [1, 2, 3].shuffle() could return [3, 1, 2].
 // Example: ["a", "b", "c"].shuffle() could return ["c", "a", "b"].
 
-// Array.prototype.shuffle = function () {
-//     Array.prototype.shuffle = function () {
-//         const newArray = [];
-//         for (let i = 0; i < this.length; i++) {
-//             let randomIdx = Math.random;
-//         }
-//     };
-// };
+Array.prototype.shuffle = function () {
+    for (let i = 0; i < this.length; i++) {
+        const j = Math.floor(Math.random() * this.length);
+        const temp = this[i];
+        this[i] = this[j];
+        this[j] = temp;
+    }
+    return this;
+};
