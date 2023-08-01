@@ -44,10 +44,9 @@ function removeLastVowel(word) {
 }
 
 function hipsterfy(sentence) {
-    const words = [];
-    for (let i = 0; i < sentence.split(" ").length; i++) {
-        const word = words[i];
-        words.push(removeLastVowel(word));
+    const words = sentence.split(" ");
+    for (let i = 0; i < words.length; i++) {
+        words[i] = removeLastVowel(words[i]);
     }
     return words.join(" ");
 }
@@ -97,14 +96,14 @@ function longestLetterStreak(str, searchLetters) {
     for (let i = 0; i < str.length; i++) {
         if (searchLetters.includes(str[i])) {
             streak++;
-            if (streak > longestStr) {
-                longestStr = streak;
+            if (streak > longestStrLength) {
+                longestStrLength = streak;
             }
         } else {
             streak = 0;
         }
     }
-    return longestStr;
+    return longestStrLength;
 }
 
 console.log("PROBLEM-4");
@@ -130,5 +129,38 @@ console.log(longestLetterStreak("YYYYY", ["Z", "K", "Y"]));
 // inPigLatin("Shmanthony is the best teacher") => "Anthonyshmay isyay ethay estbay eachertay"
 // inPigLatin("let us Dance") => "etlay usyay Anceday"
 // inPigLatin("this is the time of my life") => "isthay isyay ethay imetay ofyay myay ifelay"
+function isVowel(char) {
+    const vowels = "aeuio";
+    return vowels.includes(char);
+}
 
-function inPigLatin(sentence) {}
+function pigWord(word) {
+    if (!isVowel(word[0])) {
+        let firstVowelIdx = 0;
+        for (let i = 0; i < word.length; i++) {
+            if (isVowel(word[i])) {
+                firstVowelIdx = i;
+                break;
+            }
+        }
+        const beginning = word.slice(0, firstVowelIdx);
+        const rest = word.slice(firstVowelIdx);
+        return rest + beginning.toLowerCase() + "ay";
+    }
+    return word + "yay";
+}
+function inPigLatin(sentence) {
+    const words = sentence.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        words[i] = pigWord(words[i]);
+    }
+
+    return words.join(" ");
+}
+
+console.log("PROBLEM - 5");
+console.log(inPigLatin("Shmanthony is the best teacher"));
+console.log(inPigLatin("let us Dance"));
+console.log(inPigLatin("this is the time of my life"));
+console.log("----------------------------------------");
