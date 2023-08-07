@@ -6,10 +6,10 @@
 // The constructor should take the following parameters:a string parameter for name
 // When a new pet is created, it should start with hunger at 0 and happiness at 10.
 
-function Pet(name, hunger, happiness) {
+function Pet(name) {
     this.name = name;
-    this.hunger = hunger;
-    this.happiness = happiness;
+    this.hunger = 0;
+    this.happiness = 10;
 }
 
 /*                    Phase 2: Pet Behaviors                  */
@@ -21,19 +21,25 @@ function Pet(name, hunger, happiness) {
 // sleep(): When a pet sleeps, its hunger increases by 1, but happiness does not change.
 // Remember to prevent hunger and happiness from going outside their appropriate ranges (0-10 for both)!
 Pet.prototype.eat = function () {
-    this.happiness++;
+    this.happiness += 1;
     if (this.hunger - 1 >= 0) {
-        this.hunger--;
+        this.hunger -= 1;
     }
 };
 
 Pet.prototype.play = function () {
-    this.hunger += 1;
-    this.happiness += 2;
+    if (this.happiness + 2 <= 10) {
+        this.happiness += 2;
+    }
+    if (this.hunger + 1 <= 10) {
+        this.hunger += 1;
+    }
 };
 
 Pet.prototype.sleep = function () {
-    this.hunger++;
+    if (this.hunger + 1 <= 10) {
+        this.hunger += 1;
+    }
 };
 
 /*                  Phase 3: Advanced Pet Behaviors                                   */
@@ -43,15 +49,22 @@ Pet.prototype.sleep = function () {
 // feed(food): Instead of the eat method, this new method takes a food object as a parameter. Different types of food can increase or decrease the pet's hunger and happiness in different ways.
 
 Pet.prototype.status = function () {
-    if (this.hunger < 3) {
-        return `${this.name} is really hungry`;
+    if (this.happiness >= 8) {
+        return `${this.name} is feeling great!`;
+    } else if (this.happiness >= 5) {
+        return `${this.name} is feeling okay.`;
+    } else {
+        return `${this.name} is not doing well.`;
     }
-    return `${this.name} is feeling great!`;
 };
 
 Pet.prototype.getOlder = function () {
-    this.happiness -= 1;
-    this.hunger += 1;
+    if (this.happiness - 1 >= 0) {
+        this.happiness -= 1;
+    }
+    if (this.hunger + 1 <= 10) {
+        this.hunger += 1;
+    }
 };
 
 Pet.prototype.introduce = function () {
@@ -64,6 +77,6 @@ Pet.prototype.timeOut = function () {
     return `Hey, my happiness was ${initialHappiness}, but now it is ${this.happiness}`;
 };
 
-Pet.prototype.feed = function (food) {};
+// Pet.prototype.feed = function (food) {};
 
-const pet1 = new Pet("Bobik", 0, 10);
+// const pet1 = new Pet("Bobik", 0, 10);
