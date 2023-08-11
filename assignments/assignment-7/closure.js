@@ -115,14 +115,20 @@ console.log(doubleAndTriple(10));
 // johnGreeting.evening(); // 'Good Evening, John!'
 // Explanation: This problem involves defining multiple functions within a parent function, demonstrating how each can have access to the outer function's variables.
 
-function sequentialGreet(name) {
-    return function (time) {
-        return `Good ${time}, ${name}!`;
-    };
-}
-const johnGreeting = sequentialGreet("John");
-console.log(johnGreeting("Morning"));
-console.log(johnGreeting("Evening"));
+// function sequentialGreet(name) {
+//     return {
+//         morning: function () {
+//             return `Good Morning, ${name}!`;
+//         },
+
+//         evening: function () {
+//             return `Good Evening, ${name}!`;
+//         }
+//     };
+// }
+// const johnGreeting = sequentialGreet("John");
+// johnGreeting.morning();
+// console.log(johnGreeting("Evening"));
 
 // 3. Personal Library
 // Task: Create a function that returns an object with methods to add, remove, and list books in a personal library.
@@ -146,7 +152,7 @@ function personalLibrary() {
             }
         },
         list: function () {
-            return books.slice();
+            return books;
         }
     };
 }
@@ -199,3 +205,16 @@ function favoriteColorReminder(name, color) {
 }
 const johnsColor = favoriteColorReminder("John", "Blue");
 console.log(johnsColor());
+
+// Write a function that takes array of numbers. Numbers are uniqu, but mixed up. And it takes a Number. Remove A Number, and return a new array. New Array should not have A Number
+// [1,5,7,3,9], 3 = > [1,5,7,9]
+function removeNum(arr, num) {
+    let result = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] !== num) {
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+console.log(removeNum([1, 5, 7, 3, 9], 3));
