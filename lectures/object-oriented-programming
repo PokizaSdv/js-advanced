@@ -1,0 +1,89 @@
+// Intro to Prototype
+// Understanding Objects in JavaScript
+// In JavaScript, almost everything is an object. An object is a collection of properties, where each property is a key-value pair. The key is always a string or symbol, and the value can be any data type.
+
+// let student = {
+//   name: "John",
+//   age: 20
+// };
+// In this code snippet, student is an object with two properties: name and age.
+
+// JavaScript Constructors
+// A constructor in JavaScript is a function that is used to create new objects. The new keyword is used to create an instance of the object. Each object created by the constructor function is an instance of that object type.
+
+// For example, Array is a built-in JavaScript constructor for arrays:
+
+// let arr = new Array(1, 2, 3);
+// consonole.log(arr); // [1, 2, 3]
+// console.log(arr instanceof Array) // true
+// Here, arr is an instance of the Array constructor. It has all the properties and methods that Array.prototype defines.
+
+// Understanding Prototypes
+// Every object in JavaScript has an internal link to another object, called its prototype. This link is established at the time of object creation. The __proto__ property is often used in JavaScript to access or set the prototype of an object (i.e., its [[Prototype]] property) because [[Prototype]] itself is an internal and hidden property that you can't interact with directly.
+
+// When we say that an object B is a prototype of another object A, it means that A has a reference to B in its [[Prototype]] property. If a property isn't found on A, JavaScript will look for it on B. So, in a metaphorical sense, B serves a role similar to a "parent" and A could be considered its "child".
+// let animal = {
+//   eats: true,
+// };
+
+// let rabbit = {
+//   jumps: true,
+//   __proto__: animal
+// };
+
+// console.log(rabbit.eats); // true
+// Here, the rabbit object does not have the eats property, so JavaScript looks up to its prototype, animal, and finds the eats property there.
+
+// The __proto__ property is an older and non-standard way to get or set the prototype of an object. It's not recommended because it's not supported in all environments, and its use is discouraged in the modern JavaScript standards. However, it can be used in learning context to understand how JavaScript works under the hood.
+
+// console.log(rabbit.__proto__ === animal); // true
+// This confirms that the prototype of rabbit is indeed animal.
+
+// Prototype Chaining
+// A prototype can also have its own prototype, creating a chain of objects known as the prototype chain. When trying to access a property, JavaScript will follow this chain, looking for the property in the current object, then in its prototype, then in the prototype's prototype, and so on, until either the property is found or the end of the chain is reached (null).
+
+// let creature = {
+//   alive: true
+// };
+
+// let animal = {
+//   eats: true,
+//   __proto__: creature
+// };
+
+// let rabbit = {
+//   jumps: true,
+//   __proto__: animal
+// };
+
+// console.log(rabbit.alive); // true
+// Here, when we try to access rabbit.alive, JavaScript looks up the property in the rabbit, animal, and creature objects in that order.
+
+// Arrays and Prototypes
+// Arrays in JavaScript are objects and have a prototype. When we create an array, its prototype is Array.prototype. It includes many useful methods, such as push(), pop(), and slice().
+
+// let arr = [1, 2, 3, 4, 5];
+// console.log(arr.__proto__ === Array.prototype); // true
+// arr.push(6);
+// console.log(arr); // [1, 2, 3, 4, 5, 6]
+// The push() method is not defined in the arr object, so JavaScript looks up the prototype chain and finds push() in Array.prototype.
+
+// Object.getPrototypeOf()
+// Object.getPrototypeOf() is a method that returns the prototype of a specified object. This is the recommended way to get the prototype of an object:
+
+// let proto = Object.getPrototypeOf(arr);
+// console.log(proto === Array.prototype); // true
+// Object.setPrototypeOf()
+// Object.setPrototypeOf() is a method that sets the prototype (i.e., the internal [[Prototype]] property) of a specified object to another object or null. This is the recommended way to set the prototype:
+
+// let animal = {
+//   eats: true,
+// };
+
+// let rabbit = {
+//   jumps: true,
+// };
+
+// Object.setPrototypeOf(rabbit, animal);
+// console.log(rabbit.eats); // true
+// Here, Object.setPrototypeOf(rabbit, animal) sets animal as the prototype of rabbit.
