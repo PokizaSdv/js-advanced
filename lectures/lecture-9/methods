@@ -1,0 +1,242 @@
+// Method: .forEach
+// Intro
+// The forEach method is employed to execute a provided function once for each element in an array. Unlike traditional loops, forEach deals with a callback function, granting a more functional programming approach.
+
+// Structure
+// The basic syntax of the forEach method is as follows:
+
+// array.forEach(function(element, index, array) {
+//   // code block to be executed
+// });
+// The parameters in the callback function are:
+
+// element: The current value being processed in the array.
+// index: The index of the current value being processed in the array (optional).
+// array: The array that forEach was called upon (optional).
+// Examples
+// Simple Iteration
+// const numbers = [5, 10, 15];
+// numbers.forEach(function(number) {
+//   console.log(number);
+// });
+// // Output: 5, 10, 15
+// Using Element, Index, and Array
+// const fruits = ['apple', 'banana', 'cherry'];
+// fruits.forEach(function(fruit, index, array) {
+//   console.log(`Fruit ${index + 1} of ${array.length} is ${fruit}`);
+// });
+// // Output:
+// // Fruit 1 of 3 is apple
+// // Fruit 2 of 3 is banana
+// // Fruit 3 of 3 is cherry
+
+// Caveats
+// No Break or Continue
+// In traditional loops, you have the ability to break out of the loop or continue to the next iteration. However, with forEach, these are not possible. If you need to exit early, you must use a different looping mechanism.
+
+// Return Value
+// The forEach method returns undefined. Returning a value from the callback function will not exit the loop or have any impact on the execution of forEach.
+
+// Method: .map
+// Intro
+// The .map method is an essential part of JavaScript for working with arrays. It's used to create a new array by applying a function to every element of the existing array. Let's delve into an in-depth explanation of .map by looking at its basic structure, functionality, and various examples, including a problem-solving approach that demonstrates the refactoring from a traditional loop to using .map.
+
+// The .map method creates a new array by calling a provided function on every element in the calling array, without altering the original array.
+// Structure
+// The syntax for the .map method is as follows:
+
+// const newArray = array.map(function(element, index, array) {
+//   // return new value
+// });
+// The parameters in the callback function are:
+
+// element: The current value being processed in the array.
+// index: The index of the current value being processed in the array (optional).
+// array: The array that .map was called upon (optional).
+// Examples
+// Basic Example
+// Suppose you have an array of numbers, and you want to double each number. You can achieve this with .map:
+
+// const numbers = [1, 2, 3];
+// const doubled = numbers.map(function(number) {
+//   return number * 2;
+// });
+// console.log(doubled); // Output: [2, 4, 6]
+// Using Element, Index, and Array
+// Here's an example that utilizes all three parameters of the callback function:
+
+// const fruits = ['apple', 'banana', 'cherry'];
+// const mappedFruits = fruits.map(function(fruit, index, array) {
+//   return `${fruit} (${index + 1} of ${array.length})`;
+// });
+// console.log(mappedFruits);
+// // Output: ['apple (1 of 3)', 'banana (2 of 3)', 'cherry (3 of 3)']
+// Refactoring from a Traditional Loop
+// Problem Statement
+// You have an array of grades, and you want to increase each grade by 10%. Here's a solution using a for loop:
+
+// const grades = [60, 70, 80];
+// const increasedGrades = [];
+// for (let i = 0; i < grades.length; i++) {
+//   increasedGrades[i] = grades[i] * 1.10;
+// }
+// console.log(increasedGrades); // Output: [66, 77, 88]
+// Refactoring with .map
+// The same problem can be solved using the .map method, making the code more concise:
+
+// const grades = [60, 70, 80];
+// const increasedGrades = grades.map(function(grade) {
+//   return grade * 1.10;
+// });
+// console.log(increasedGrades); // Output: [66, 77, 88]
+
+// Conclusion
+// The .map method provides a clean, straightforward way to create a new array based on the existing one by applying a specific function to each element. It encapsulates the logic of iteration, allowing developers to focus on the transformation being applied to each element.
+
+// Unlike some traditional loops, .map is expressive and helps in maintaining consistent code when working with arrays. By understanding its callback function, including the parameters for the current element, index, and array itself, one can utilize .map to write more concise and readable code.
+
+// While avoiding technical jargon related to functional programming, it's essential to recognize that .map offers a pattern that many developers find beneficial for transforming data in arrays. Its applicability ranges from simple transformations to more complex data manipulation, making it a valuable tool in modern JavaScript programming.
+
+// Method: .every
+// Intro
+// The every method in JavaScript is a powerful array method that tests whether all elements in an array pass the provided test implemented by the given function. It returns a Boolean value—true if all elements in the array satisfy the provided testing function and false otherwise. Let's explore the every method, its usage, structure, and some illustrative examples.
+
+// Structure
+// The syntax for the every method is:
+
+// const result = array.every(function(element, index, array) {
+//   // return a condition
+// });
+// The parameters in the callback function are:
+
+// element: The current value being processed in the array.
+// index: The index of the current value being processed in the array (optional).
+// array: The array that every was called upon (optional).
+// Functionality
+// The every method executes the provided function once for each element in the array until it finds one where the returned value is false. If such an element is found, the every method immediately returns false. Otherwise, if the callback function returns a truthy value for all elements, every returns true.
+
+// Examples
+// Checking for Positive Numbers
+// Here's an example that checks if all the numbers in an array are positive:
+
+// const numbers = [1, 5, 8, 9];
+// const allPositive = numbers.every(function(number) {
+//   return number > 0;
+// });
+// console.log(allPositive); // Output: true
+// An example checks if array contains only even numbers:
+
+// const array = [2, 4, 6, 8];
+// const isArrayEven = array.every(function(element) {
+//   return element % 2 === 0;
+// });
+// console.log(isArrayEven); // Output: true
+// Edge Cases
+// Short-Circuiting
+// The every method stops executing the provided function if it encounters an element that fails the test (i.e., the function returns false). This is known as "short-circuiting."
+
+// Empty Arrays
+// If the array is empty, the every method returns true for any condition. This might seem counterintuitive but aligns with the definition of a universal quantifier in logic.
+
+// Conclusion
+// The every method provides an efficient and expressive way to test whether all elements in an array satisfy a particular condition. By encapsulating the loop logic and working seamlessly with various types of data, it allows developers to write cleaner, more maintainable code.
+
+// It plays a vital role in scenarios where you need to ensure that all elements of an array meet specific criteria. Understanding its behavior, including the way it handles short-circuiting and empty arrays, enables developers to leverage this method effectively.
+
+// The simplicity of its usage, combined with the depth of its applicability, makes the every method an essential tool in the JavaScript developer's toolkit for handling common array processing tasks with ease and clarity.
+
+// Method: .some
+// Intro
+// The .some method in JavaScript is utilized to test whether at least one element in the array meets the condition implemented by the provided function. It's a part of the array prototype and is used to verify if any elements in the array satisfy a specified condition. Here, we'll explore the .some method, its structure, how it works, and examples of its usage.
+
+// Structure
+// The basic syntax of the .some method is:
+
+// const result = array.some(function(element, index, array) {
+//   // return a condition
+// });
+// The parameters in the callback function are:
+
+// element: The current value being processed in the array.
+// index: The index of the current value being processed in the array (optional).
+// array: The array that .some was called upon (optional).
+// Functionality
+// The .some method executes the provided function once for each element in the array until it finds one where the returned value is truthy. If such an element is found, the .some method immediately returns true. Otherwise, if the callback function returns a falsy value for all elements, .some returns false.
+
+// Examples
+// Checking for Negative Numbers
+// Here's an example that checks if any numbers in an array are negative:
+
+// const numbers = [1, -5, 8, 9];
+// const anyNegative = numbers.some(function(number) {
+//   return number < 0;
+// });
+// console.log(anyNegative); // Output: true
+// Checking for Odd Numbers
+// Here's an example that checks if any numbers in an array are odd:
+
+// const array = [2, 4, 5, 8];
+// const hasOddNumber = array.some(function(element, index, array) {
+//   return element % 2 !== 0;
+// });
+// console.log(hasOddNumber); // Output: true
+// Considerations and Behavior
+// Short-Circuiting
+// The .some method stops executing the provided function once it encounters an element that passes the test (i.e., the function returns true). This is referred to as "short-circuiting," as it stops processing as soon as the condition is met.
+
+// Empty Arrays
+// If the array is empty, the .some method returns false, as no elements are present to satisfy any condition.
+
+// Comparison with .every
+// While the .every method checks that all elements meet a certain condition, the .some method only needs one element to meet the condition. They are complementary in nature: .some returns true if any element satisfies the condition, while .every returns true if all elements do.
+
+// Conclusion
+// The .some method in JavaScript provides a concise and expressive means to determine whether any element in an array meets a specified condition. It's an invaluable tool for scenarios where you need to quickly check if an array contains at least one element that fulfills a particular criterion.
+
+// Understanding its structure, behavior, and how it interacts with different data types enables developers to utilize this method effectively in their code. Its simple syntax and ability to short-circuit make it an efficient option for many common programming tasks. It is a testament to JavaScript's powerful and flexible array-handling capabilities, allowing for more readable and maintainable code.
+
+// Method: .filter
+// Intro
+// The .filter method in JavaScript is part of the array prototype and is used to create a new array containing all elements that pass a specific test or condition set by a provided function. It enables the efficient selection of elements based on particular criteria, thus "filtering" the array.
+
+// Structure
+// The basic syntax of the .filter method is as follows:
+
+// const result = array.filter(function(element, index, array) {
+//   // return a condition
+// });
+// The parameters in the callback function are:
+
+// element: The current value being processed in the array.
+// index: The index of the current value being processed in the array (optional).
+// array: The array that .filter was called upon (optional).
+// Functionality
+// The .filter method executes the provided function for each element in the array. If the function returns a truthy value for a given element, that element is included in the new array. If the function returns a falsy value, the element is excluded.
+
+// Examples
+// Filtering Even Numbers
+// Here's an example that filters even numbers from an array:
+
+// const numbers = [1, 2, 3, 4, 5, 6];
+// const evenNumbers = numbers.filter(function(number) {
+//   return number % 2 === 0;
+// });
+// console.log(evenNumbers); // Output: [2, 4, 6]
+// Here's an example that filters even numbers at even indecies from an array:
+
+// const array = [10, 15, 20, 25, 30];
+// const evenIndexedNumbers = array.filter(function(element, index, array) {
+//   return index % 2 === 0;
+// });
+// console.log(evenIndexedNumbers); // Output: [10, 20, 30]
+// Considerations
+// Immutable: The .filter method does not modify the original array; instead, it creates a new array.
+// Chainable: Since .filter returns a new array, you can chain other array methods onto it.
+// Empty Arrays: If no elements meet the criteria, an empty array is returned.
+// 5Comparison with Other Methods
+// Unlike .map, which transforms every element in an array, or .some and .every, which test conditions, .filter selectively constructs a new array based on a condition.
+
+// Conclusion
+// The .filter method is a powerful and expressive tool for creating a new array from an existing one, based on specific criteria. By handling the loop logic internally and returning a new array, it helps to write clean and maintainable code.
+
+// Its ability to work seamlessly with different data types and the possibility to chain with other array methods make it an essential part of modern JavaScript programming. Understanding its structure, behavior, and underlying mechanics allows developers to use this method effectively to craft elegant and efficient solutions.
