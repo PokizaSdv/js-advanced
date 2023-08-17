@@ -1,0 +1,108 @@
+// //  Intro
+// Understanding Closures in JavaScript
+// Closures are a powerful feature in JavaScript that allows inner functions to access and remember the variables of their containing functions. This concept may seem straightforward, but it has profound implications in how functions can be used and combined in JavaScript.
+
+// Closures in JavaScript occur when an inner function is nested inside another function, allowing the inner function to access its containing function's variables and remember their values. In simpler terms, closures enable functions to "remember" the environment in which they were created.
+// Simple Closure
+// Let's begin with a straightforward example where an inner function accesses a variable from its containing function:
+
+// function greet() {
+//   const firstName = 'Ali'; // A local constant created by greet()
+//   function displayName() { // displayName() is an inner function
+//     console.log(firstName); // Accessing constant declared in parent function
+//   }
+//   displayName(); // Invoking the inner function
+// }
+
+// greet(); // Will run the displayName function and log 'Alan'
+// Here, the inner function displayName accesses the firstName constant from its containing function greet. When we call greet(), it logs 'Ali' to the console.
+
+// Classic Closure
+// function welcomeMessage() {
+//   const name = 'Alice'; // A local constant created by welcomeMessage()
+//   function showName() { // showName() is an inner function
+//     console.log(name); // Accessing constant declared in the parent function
+//   }
+//   return showName; // Returning the inner function
+// }
+
+// const displayWelcome = welcomeMessage(); // displayWelcome is now a function that can be invoked
+// displayWelcome(); // Will run the showName function and log 'Alice'
+
+// How It Works:
+// The JavaScript engine first looks within the inner function's scope for the name constant when executing the console log.
+// Since it doesn't find it there, it moves up the scope chain to the parent function (welcomeMessage) and looks for a name constant.
+// It finds the name constant here, with the value 'Alice', and logs it to the console.
+// Significance of Closures:
+// In many programming languages, once the outer function (welcomeMessage) has finished executing, its local variables would typically be removed from memory. But in JavaScript, that's not the case.
+
+// Since the inner function (showName) is returned and can still be invoked later (via displayWelcome), JavaScript ensures that it retains access to the name constant. Even though the outer function has finished executing, the inner function still "remembers" the value of name, allowing the code to log 'Alice'.
+
+// Inner functions can access variables from their containing functions.
+// Inner functions "remember" the values of these variables, even after the containing function has finished executing.
+// Updated Definition of Closure
+// A closure is when an inner function not only has access to its containing function's variables but also remembers their values, even if the containing function has finished executing. It's a way for functions in JavaScript to recall the context in which they were created, which distinguishes the language from many others.
+
+// This concept is vital in JavaScript programming and is often a topic in interviews, particularly for those coming from different language backgrounds, who might find this behavior unexpected. Understanding closures helps developers write more flexible and expressive code, taking advantage of JavaScript's unique scoping rules.
+
+// Examples
+// A closure is a combination of a function bundled together with references to its surrounding state (the lexical environment). In simple terms, closures allow JavaScript functions to have "memories" and remember the scope in which they were created.
+
+// Simple Example
+// Let's start with a simple example to illustrate the basic concept of closures.
+
+// function outer() {
+//   let outerVar = 'I am outside!';
+
+//   function inner() {
+//     console.log(outerVar);
+//   }
+
+//   return inner;
+// }
+
+// const innerFunction = outer();
+// innerFunction(); // Outputs: 'I am outside!'
+// Here, inner is a closure that encompasses its own scope, the scope of outer, and the global scope. When we invoke innerFunction, it remembers the outerVar from the scope in which it was created, even after outer has finished executing.
+
+// Intermediate Example
+// Now, let's see a more complex example to understand how closures can be useful.
+
+// function createMultiplier(multiplier) {
+//   return function (x) {
+//     return x * multiplier;
+//   };
+// }
+
+// const multiplyByTwo = createMultiplier(2);
+// const multiplyByThree = createMultiplier(3);
+
+// console.log(multiplyByTwo(5)); // Outputs: 10
+// console.log(multiplyByThree(5)); // Outputs: 15
+// Here, each returned function has a closure over the multiplier argument, allowing us to create customized multiplier functions.
+
+// Advanced Example: Emulating Private Variables
+// Closures allow us to create private variables that can't be accessed from outside the function.
+
+// function counter() {
+//   let count = 0;
+
+//   return {
+//     increment: function () {
+//       count++;
+//       console.log(count);
+//     },
+//     decrement: function () {
+//       count--;
+//       console.log(count);
+//     }
+//   };
+// }
+
+// const myCounter = counter();
+// myCounter.increment(); // Outputs: 1
+// myCounter.decrement(); // Outputs: 0
+// Here, count is not accessible from outside the counter function. The functions increment and decrement are closures that have access to count.
+
+// Conclusion
+// Closures are one of the most powerful features of JavaScript, allowing functions to carry their lexical scope with them. They enable more abstract and concise code, encapsulation, and can be used to emulate private variables. Understanding closures is fundamental to mastering JavaScript, as they underpin many of the language's most useful patterns and constructs. Whether creating factory functions, working with callbacks, or building more maintainable code, closures are a key concept to grasp.
