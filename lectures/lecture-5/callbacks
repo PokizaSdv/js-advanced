@@ -1,0 +1,155 @@
+// Intro
+// What is Callback
+// In programming, a callback is a function that is passed as an argument to another function and is expected to be executed at a later time. This concept is common in JavaScript, where functions are first-class citizens, meaning they can be passed around like any other variable.
+
+// Here's a simple example to help you understand:
+
+// function printMessage(message, callback) {
+//   console.log(message);
+//   callback();
+// }
+
+// function sayGoodbye() {
+//   console.log('Goodbye!');
+// }
+
+// printMessage('Hello!', sayGoodbye); 
+// // Output:
+// // Hello!
+// // Goodbye!
+// In this example, sayGoodbye is a callback function that is passed to printMessage. After printing the message, printMessage calls the sayGoodbye function.
+
+// Now, let's delve into a more intricate scenario where callbacks are useful.
+
+// Step 1: Recognizing the Repetition
+// We start with three functions that perform a similar action:
+
+// function introduceCasual(name) {
+//     console.log(`Hey, this is ${name}`);
+//     console.log("I am studying Software Engineering");
+// }
+
+// function introduceOk(name) {
+//     console.log(`Hello, My name is ${name}`);
+//     console.log("I am studying Software Engineering");
+// }
+
+// function introduceFormal(name) {
+//     console.log(`Hi there, let me introduce myself. My name is ${name}`);
+//     console.log("I am studying Software Engineering");
+// }
+// We notice that each function repeats the line console.log("I am studying Software Engineering");. This repetition is a sign that we can optimize our code.
+
+// Step 2: Refactoring Using Callbacks
+// To eliminate the repetition, we'll create a new function that accepts a name and a callback function:
+
+// function introduce(name, cb) {
+//     cb(name);
+//     console.log("I am studying Software Engineering");
+// }
+// The callback function will handle the specific introduction style.
+
+// Step 3: Defining Specific Greeting Functions
+// We'll define three separate functions for different greeting styles:
+
+// function greetCasual(name) {
+//     console.log(`Hey, this is ${name}`);
+// }
+
+// function greetOk(name) {
+//     console.log(`Hello, My name is ${name}`);
+// }
+
+// function greetFormal(name) {
+//     console.log(`Hi there, let me introduce myself. My name is ${name}`);
+// }
+// Step 4: Invoking the Callbacks
+// We'll use the introduce function with the specific greeting functions:
+
+// introduce("Ali", greetCasual);
+// introduce("Ali", greetOk);
+// introduce("Ali", greetFormal);
+// Conclusion
+// Callbacks allow us to create more modular, maintainable, and reusable code. In this example, we transformed our code into a cleaner design by recognizing a repeated pattern and utilizing callbacks. This technique helps us avoid duplication and provides a flexible way to delegate specific behaviors, making our code more adaptable and easier to read.
+
+
+// More Examples
+
+// Initially, we have three separate functions to calculate the sum of the elements, the sum of the squares of the elements, and the sum of the cubes of the elements in an array:
+
+// function sum(arr) {
+//     let total = 0;
+//     for (let i = 0; i < arr.length; i++) {
+//         total += arr[i];
+//     }
+//     return total;
+// }
+
+// function sumOfElementSquares(arr) {
+//     let total = 0;
+//     for (let i = 0; i < arr.length; i++) {
+//         total += arr[i] * arr[i];
+//     }
+//     return total;
+// }
+
+// function sumOfElementsThirdPower(arr) {
+//     let total = 0;
+//     for (let i = 0; i < arr.length; i++) {
+//         total += arr[i] * arr[i] * arr[i];
+//     }
+//     return total;
+// }
+
+// // Example inputs
+// let numbers = [2, 3, 4];
+// console.log(sum(numbers)); // Output: 9
+// console.log(sumOfElementSquares(numbers)); // Output: 29
+// console.log(sumOfElementsThirdPower(numbers)); // Output: 99
+// Problem
+// The above code consists of three separate functions that calculate the sum of the elements, the sum of the squares of the elements, and the sum of the cubes of the elements in an array. While these functions achieve the desired results, they contain repeated code that performs the iteration and summation of the array elements. This repetition can lead to maintainability issues and makes the code less flexible if further changes or extensions are required.
+
+// Solution
+// To address the problem, we can refactor the code using callbacks. Here's the refactored code snippet:
+
+// function calculate(arr, powerFunction) {
+//     let total = 0;
+//     for (let i = 0; i < arr.length; i++) {
+//         total += powerFunction(arr[i]);
+//     }
+//     console.log(total);
+// }
+
+// function firstPower(num) {
+//     return num;
+// }
+
+// function secondPower(num) {
+//     return num * num;
+// }
+
+// function thirdPower(num) {
+//     return num * num * num;
+// }
+
+// // Example inputs
+// let numbers = [2, 3, 4];
+// calculate(numbers, firstPower); // Output: 9
+// calculate(numbers, secondPower); // Output: 29
+// calculate(numbers, thirdPower); // Output: 99
+
+// 1. A Generic Function (calculate): A generic function calculate is defined that takes an array (arr) and a power function (powerFunction) as arguments. Inside this function, a loop iterates over the array and applies the powerFunction to each element, adding the result to the total. This function encapsulates the common logic found in the initial functions.
+
+// 2. Callback Functions for Specific Powers: Three separate functions are defined to represent the first, second, and third powers (firstPower, secondPower, and thirdPower). These functions take a number as an argument and return the number raised to the corresponding power.
+
+// 3. Invoking the Callbacks: The calculate function can be called with different power functions as the second argument, allowing for different calculations based on the required power.
+
+// Why the Solution is Better
+// The refactored code using callbacks has several advantages:
+
+// DRY (Don't Repeat Yourself): By extracting the common iteration and summation logic into the calculate function, the code avoids unnecessary repetition, making it easier to read and maintain.
+// Flexibility: By accepting different power functions as callbacks, the calculate function can perform various calculations without changes to its internal code. If a new power calculation is required, only a new callback function needs to be defined.
+// Reusability: The power functions (firstPower, secondPower, and thirdPower) can be reused in different parts of the application or in different projects, promoting code reusability.
+// Enhanced Collaboration: Developers working on different parts of the code can create new power functions without modifying the calculate function, allowing for more effective collaboration.
+// Conclusion
+// The refactoring process that introduced callbacks transformed the code into a more modular, reusable, and maintainable design. This example illustrates the power of callbacks in enabling more abstract and generic programming, allowing code to be tailored to specific needs without modifying common logic. By recognizing patterns and applying callbacks, developers can create cleaner code structures that can adapt to changing requirements.
