@@ -1,0 +1,295 @@
+//  Classes
+// With ES6, JavaScript introduced classes which is a syntactic sugar over the existing prototype-based inheritance and constructor functions. The class syntax does not introduce a new object-oriented inheritance model to JavaScript. JavaScript classes provide a much simpler and clearer syntax to create objects and deal with inheritance.
+
+// Below is the Car class that implements the same functionality as your function constructor and prototype example:
+
+// class Car {
+//     constructor(make, model, year, mileage) {
+//         this.make = make;
+//         this.model = model;
+//         this.year = year;
+//         this.mileage = mileage;
+//     }
+
+//     start() {
+//         console.log(`${this.make} ${this.model} has started.`);
+//     }
+
+//     stop() {
+//         console.log(`${this.make} ${this.model} has stopped.`);
+//     }
+// }
+
+// Here is how you can create instances of Car:
+
+// let car1 = new Car("Toyota", "Camry", 2017, 50000);
+// let car2 = new Car("Honda", "Accord", 2019, 30000);
+// Just like in the function constructor, the new keyword creates a new instance of the class, and the constructor method is called.
+
+// Now, if you want to add a new method to the class, you just add it to the class definition:
+
+// class Car {
+//     //...
+
+//     drive() {
+//         console.log(`${this.make} ${this.model} is driving.`);
+//     }
+// }
+// All existing instances of the class automatically gain access to the new method.
+
+// If you want to modify a method, you just modify it in the class definition:
+
+// class Car {
+//     //...
+
+//     start() {
+//         console.log(`${this.year} ${this.make} ${this.model} has started.`);
+//     }
+// }
+// All existing instances of the class will use the new version of the method.
+
+// Overall, JavaScript classes make the code more straightforward and easy to understand. They are a cleaner and more intuitive way to deal with object constructors and prototype inheritance.
+
+// Static Methods
+
+// Static methods in JavaScript are functions that are associated with a class rather than instances of the class. You can call these methods directly on the class itself, not on an instance of the class. They're often used for utility functions which don't rely on any particular object state, or where the state is passed as an argument.
+
+// When you define a method as static, it means you can't call it from an instance of a class. It's mainly used when you need a function that does not rely on the state of the object itself. It's a way to group functions that logically belong to a certain class, but don't need to access any of the class's properties or methods.
+
+// Let's introduce the Player class. Here we have a class that is supposed to represent a player in a game. Each player has a name and a score, and can attack other players.
+
+// class Player {
+//     constructor(name, score) {
+//         this.name = name;
+//         this.score = score;
+//     }
+
+//     attack(target) {
+//         let damage = Math.floor(Math.random() * 10 + 1);
+//         target.score -= damage;
+//         console.log(`${this.name} attacks ${target.name} for ${damage} points! ${target.name}'s score is now ${target.score}.`);
+//     }
+// }
+// Now, let's introduce a static method, declareWinner(). This function does not rely on any specific player's properties, but instead, takes in two players and compares their scores. Because it doesn't need to be associated with any one player, it makes sense to define it as a static method.
+
+// static declareWinner(player1, player2) {
+//     if(player1.score > player2.score) {
+//         return `${player1.name} is the winner with a score of ${player1.score}!`;
+//     } else if(player1.score < player2.score) {
+//         return `${player2.name} is the winner with a score of ${player2.score}!`;
+//     } else {
+//         return "It's a tie!";
+//     }
+// }
+// In this case, the declareWinner() function can be called directly on the Player class, and not on instances of the class. This static method is useful for comparing two players and deciding the winner based on their scores.
+
+// Our final Player class with static method declareWinner() would look like this:
+
+// class Player {
+//     constructor(name, score) {
+//         this.name = name;
+//         this.score = score;
+//     }
+
+//     attack(target) {
+//         let damage = Math.floor(Math.random() * 10 + 1);
+//         target.score -= damage;
+//         console.log(`${this.name} attacks ${target.name} for ${damage} points! ${target.name}'s score is now ${target.score}.`);
+//     }
+
+//     static declareWinner(player1, player2) {
+//         if(player1.score > player2.score) {
+//             return `${player1.name} is the winner with a score of ${player1.score}!`;
+//         } else if(player1.score < player2.score) {
+//             return `${player2.name} is the winner with a score of ${player2.score}!`;
+//         } else {
+//             return "It's a tie!";
+//         }
+//     }
+// }
+// Now we can create instances of players, have them attack each other, and then call our static method to determine the winner:
+
+// let player1 = new Player("Alice", 100);
+// let player2 = new Player("Bob", 100);
+
+// player1.attack(player2);
+// player2.attack(player1);
+
+// console.log(Player.declareWinner(player1, player2));
+// This will simulate a game, where the players attack each other, and finally, the winner is declared.
+
+// Inheritance
+
+// Inheritance is a fundamental concept in Object-Oriented Programming (OOP) which allows us to define a class in terms of another class, which makes it easier to create and maintain an application. This also provides an opportunity to reuse code functionality and speed up implementation time.
+
+// When creating classes, programmers can define new classes based on existing ones, reusing the code from the original class and adding additional features or overrides as needed. This helps keep related code together and makes our code more organized and easier to maintain.
+
+// In JavaScript, classes can inherit from other classes, extending their functionality. The class that is being inherited from is called the "parent" or "super" class, and the class that is doing the inheriting is called the "child" or "sub" class.
+
+// Problem
+// We are designing a system to manage different types of vehicles, specifically Cars and Motorcycles. Here's how you might define a Car and a Motorcycle without using inheritance:
+
+// class Car {
+//     constructor(make, model, year, mileage, doors) {
+//         this.make = make;
+//         this.model = model;
+//         this.year = year;
+//         this.mileage = mileage;
+//         this.doors = doors;
+//     }
+
+//     start() {
+//         console.log(`${this.make} ${this.model} is starting.`);
+//     }
+
+//     drive() {
+//         console.log(`${this.make} ${this.model} is driving.`);
+//     }
+
+//     stop() {
+//         console.log(`${this.make} ${this.model} has stopped.`);
+//     }
+// }
+
+// class Motorcycle {
+//     constructor(make, model, year, mileage, type) {
+//         this.make = make;
+//         this.model = model;
+//         this.year = year;
+//         this.mileage = mileage;
+//         this.type = type;
+//     }
+
+//     start() {
+//         console.log(`${this.make} ${this.model} is starting.`);
+//     }
+
+//     drive() {
+//         console.log(`${this.make} ${this.model} is driving.`);
+//     }
+
+//     stop() {
+//         console.log(`${this.make} ${this.model} has stopped.`);
+//     }
+// }
+
+// Here we can see a lot of repetition. The constructor parameters and the methods (start, drive, stop) are essentially the same for both classes.
+
+// Inheritance
+// We can solve this problem by creating a general class, Vehicle, and have Car and Motorcycle inherit from it.
+
+// class Vehicle {
+//     constructor(make, model, year, mileage) {
+//         this.make = make;
+//         this.model = model;
+//         this.year = year;
+//         this.mileage = mileage;
+//     }
+
+//     start() {
+//         console.log(`${this.make} ${this.model} is starting.`);
+//     }
+
+//     drive() {
+//         console.log(`${this.make} ${this.model} is driving.`);
+//     }
+
+//     stop() {
+//         console.log(`${this.make} ${this.model} has stopped.`);
+//     }
+// }
+
+// class Car extends Vehicle {
+//     constructor(make, model, year, mileage, doors) {
+//         super(make, model, year, mileage); // call the super class constructor with super()
+//         this.doors = doors;
+//     }
+// }
+
+// class Motorcycle extends Vehicle {
+//     constructor(make, model, year, mileage, type) {
+//         super(make, model, year, mileage); // call the super class constructor with super()
+//         this.type = type;
+//     }
+
+//     doAWheelie() {
+//         console.log(`${this.make} ${this.model} did a wheelie!`);
+//     }
+// }
+
+// Now, the Car and Motorcycle classes have all the methods of the Vehicle class, and they have added their own unique properties. The Car class has a doors property, and the Motorcycle class has a type property and a unique method doAWheelie().
+
+// The super() function is used to call the parent class's constructor. This is necessary because the 'this' keyword in the context of the Car or Motorcycle constructor refers to the new Car or Motorcycle object, and these objects don't have the properties from the Vehicle class until super() is called.
+
+// We can now create new instances of Car and Motorcycle:
+
+// let myCar = new Car('Toyota', 'Camry', 2019, 30000, 4);
+// myCar.start(); // logs: 'Toyota Camry is starting.'
+// myCar.drive(); // logs: 'Toyota Camry is driving.'
+// myCar.stop();  // logs: 'Toyota Camry has stopped.'
+
+// let myBike = new Motorcycle('Harley Davidson', 'Street 750', 2018, 8000, 'Cruiser');
+// myBike.start();      // logs: 'Harley Davidson Street 750 is starting.'
+// myBike.doAWheelie(); // logs: 'Harley Davidson Street 750 did a wheelie!'
+// myBike.stop();       // logs: 'Harley Davidson Street 750 has stopped.'
+// Super
+// The super keyword can also be used to call a method in the parent class that has been overridden by a method in the child class.
+
+// The need for this arises when you have a method in a parent class that performs some operation that is useful for the child class, but the child class needs to extend or modify the behavior of that method in some way.
+
+// By using super.methodName(), you can call the original version of the method from the parent class, and then add additional functionality in the child class's version of the method.
+
+// Let's extend our previous example to illustrate this:
+
+// class Vehicle {
+//     constructor(make, model, year, mileage) {
+//         this.make = make;
+//         this.model = model;
+//         this.year = year;
+//         this.mileage = mileage;
+//     }
+
+//     start() {
+//         console.log(`${this.make} ${this.model} is starting.`);
+//     }
+
+//     drive() {
+//         console.log(`${this.make} ${this.model} is driving.`);
+//     }
+
+//     stop() {
+//         console.log(`${this.make} ${this.model} has stopped.`);
+//     }
+// }
+
+// class Car extends Vehicle {
+//     constructor(make, model, year, mileage, doors) {
+//         super(make, model, year, mileage); // call the super class constructor with super()
+//         this.doors = doors;
+//     }
+
+//     start() {
+//         super.start(); // Call the parent start method
+//         console.log(`All ${this.doors} doors are closed.`);
+//     }
+// }
+
+// class Motorcycle extends Vehicle {
+//     constructor(make, model, year, mileage, type) {
+//         super(make, model, year, mileage); // call the super class constructor with super()
+//         this.type = type;
+//     }
+
+//     start() {
+//         super.start(); // Call the parent start method
+//         console.log(`Safety gear has been checked.`);
+//     }
+
+//     doAWheelie() {
+//         console.log(`${this.make} ${this.model} did a wheelie!`);
+//     }
+// }
+
+// In this updated code, both Car and Motorcycle have their own start methods that extend the start method in Vehicle. They call super.start() to perform the basic starting procedure that is common to all vehicles, and then they add some additional steps that are specific to cars and motorcycles, respectively.
+
+// You can see how this allows us to both reuse and extend functionality between classes in a very clean and understandable way.
