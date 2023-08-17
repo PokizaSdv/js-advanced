@@ -1,0 +1,149 @@
+// Constructor Functions
+// Let's consider that we're managing a fleet of cars. Each car has a few properties - make, model, year, and mileage, and a few actions that it can perform, like start and stop. Here's how you might define a car object:
+
+// let car1 = {
+//     make: "Toyota",
+//     model: "Camry",
+//     year: 2017,
+//     mileage: 50000,
+//     start: function() { console.log(this.make + " " + this.model + " has started."); },
+//     stop: function() { console.log(this.make + " " + this.model + " has stopped."); }
+// };
+
+// let car2 = {
+//     make: "Lada",
+//     model: "Niva",
+//     year: 2017,
+//     mileage: 50000,
+//     start: function() { console.log(this.make + " " + this.model + " has started."); },
+//     stop: function() { console.log(this.make + " " + this.model + " has stopped."); }
+// };
+// You'll see that the structure of these cars' objects is quite repetitive.
+
+// A Better Way
+// We can avoid this repetition by using a function constructor. A function constructor in JavaScript is essentially a blueprint for creating objects. We could define a Car function constructor as follows:
+
+// function Car(make, model, year, mileage) {
+//     this.make = make;
+//     this.model = model;
+//     this.year = year;
+//     this.mileage = mileage;
+//     this.start = function() {
+//         console.log(this.make + " " + this.model + " has started.");
+//     };
+//     this.stop = function() {
+//         console.log(this.make + " " + this.model + " has stopped.");
+//     };
+// }
+// Here, Car is our function constructor. The this keyword refers to the new object being created. When we say this.make = make, it means "assign the value of the make parameter to the make property of the new object".
+
+// To create a new car, we would use the new keyword followed by the function constructor:
+
+// let car1 = new Car("Toyota", "Camry", 2017, 50000);
+// If you run console.log(car1), you will see an object like this:
+
+// Car {
+//   make: 'Toyota',
+//   model: 'Camry',
+//   year: 2017,
+//   mileage: 50000,
+//   start: [Function],
+//   stop: [Function]
+// }
+// This is an instance of the Car function constructor. Each instance is a fully-fledged object, with its properties and methods. This technique allows us to create multiple cars easily:
+
+// let car2 = new Car("Honda", "Accord", 2019, 30000);
+// So, car1 and car2 are instances of Car - they are individual occurrences of Car objects. The term "instance" in object-oriented programming generally refers to a single occurrence of an object.
+
+// While the function constructor is a big improvement, we are still creating new start and stop functions for each car.
+
+// What does the new keyword do?
+// When new is used, the following happens:
+
+// An empty object is created,
+// The keyword this inside of the constructor function refers to the empty object that was just created,
+// A return this is added to the constructor function (this is why you don't need to explicitly return any value),
+// An internal link is created between the object and the .prototype property on the constructor function. We can actually access this link on the object that is created: it is called __proto__, sometimes pronounced “dunder” (double underscore) proto.
+
+// Constructor Functions | Prototype
+
+// Let's start with our Car function constructor:
+
+// function Car(make, model, year, mileage) {
+//     this.make = make;
+//     this.model = model;
+//     this.year = year;
+//     this.mileage = mileage;
+//     this.start = function() {
+//         console.log(this.make + " " + this.model + " has started.");
+//     };
+//     this.stop = function() {
+//         console.log(this.make + " " + this.model + " has stopped.");
+//     };
+// }
+// We create a couple of car instances:
+
+// let car1 = new Car("Toyota", "Camry", 2017, 50000);
+// let car2 = new Car("Honda", "Accord", 2019, 30000);
+// Problem 1: Code Maintenance
+// Let's say we want to update the start method to include the year when the car started. We would have to update the method in each instance:
+
+// car1.start = function() {
+//     console.log(this.year + " " + this.make + " " + this.model + " has started.");
+// };
+// car2.start = function() {
+//     console.log(this.year + " " + this.make + " " + this.model + " has started.");
+// };
+// The problem here is quite straightforward but significant: we are duplicating our effort. This practice goes against the DRY (Don't Repeat Yourself) principle, a fundamental concept in software development. The DRY principle states that each piece of your system should have a single, unambiguous, authoritative representation within the system. By updating the method in each instance, we're creating multiple representations of the same concept (the start method), which leads to higher chances of inconsistencies and bugs.
+
+// Additionally, this approach doesn't scale. As the number of instances grows, it will become increasingly difficult to manage and make sure that we have updated the start method in every instance.
+
+// Problem 2: Adding New Methods
+// Now, let's say we want to add a new method drive to our cars. Again, we'd have to add it to each instance:
+
+// car1.drive = function() {
+//     console.log(this.make + " " + this.model + " is driving.");
+// };
+// car2.drive = function() {
+//     console.log(this.make + " " + this.model + " is driving.");
+// };
+// This problem, like the previous one, violates the DRY principle. We're repeating the same action of defining the drive method for each car instance. The more instances we have, the more times we'll need to define this method, which is inefficient and makes the code harder to maintain and debug.
+
+// Moreover, this approach risks introducing inconsistency into our system. If we forget to add the new method to one of the instances or add it with a slightly different implementation, it could lead to unexpected behaviors and bugs that are difficult to track down.
+
+// Refactor to Prototypes
+// By using prototypes, we can mitigate these problems. We refactor our Car constructor to use prototypes:
+
+// function Car(make, model, year, mileage) {
+//     this.make = make;
+//     this.model = model;
+//     this.year = year;
+//     this.mileage = mileage;
+// }
+
+// Car.prototype.start = function() {
+//     console.log(this.make + " " + this.model + " has started.");
+// }
+
+// Car.prototype.stop = function() {
+//     console.log(this.make + " " + this.model + " has stopped.");
+// }
+// Benefit 1: Easier Code Maintenance
+// Now, if we want to update the start method, we only need to do it once, on the Car prototype:
+
+// Car.prototype.start = function() {
+//     console.log(this.year + " " + this.make + " " + this.model + " has started.");
+// };
+// Updating the method on the Car prototype ensures that all instances of Car automatically have access to the updated method. This approach respects the DRY principle by providing a single, authoritative representation of the start method.
+
+// By keeping the implementation of the start method in one place, we also improve our code's maintainability. There's only one piece of code to update, review, and test.
+
+// Benefit 2: Easier to Add New Methods
+// When we want to add a new method, like drive, we just add it to the Car prototype:
+
+// Car.prototype.drive = function() {
+//     console.log(this.make + " " + this.model + " is driving.");
+// };
+// With this approach, all instances of Car immediately gain access to the new drive method. We avoid the need to add the method to each instance individually, thus adhering to the DRY principle.
+
+// This pattern significantly eases the process of extending the capabilities of all Car instances. It also ensures consistency
