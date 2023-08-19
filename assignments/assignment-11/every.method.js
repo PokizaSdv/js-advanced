@@ -6,7 +6,7 @@
 // Output: true
 function allObjectsHaveProperty(objects, property) {
     return objects.every(function (obj) {
-        return property in obj;
+        return obj[property] !== undefined;
     });
 }
 const input1 = [{ name: "Alice" }, { name: "Bob" }];
