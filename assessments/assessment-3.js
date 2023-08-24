@@ -182,16 +182,16 @@ console.log(transformedLibrary);
 // ]
 
 function filterBooks(books, genreFilter, ratingThreshold, yearRange) {
-    return books.filter((book) => {
-        book.genre === genreFilter &&
-            book.rating >= ratingThreshold &&
-            book.publishedYear >= yearRange[0] &&
-            book.publishedYear <= yearRange[1];
-
-        // return books.map(book => {
-        //     (title: book.title, author: book.author)
-        // })
-    });
+    return books
+        .filter((book) => {
+            return (
+                book.genre === genreFilter &&
+                book.rating >= ratingThreshold &&
+                book.publishedYear >= yearRange[0] &&
+                book.publishedYear <= yearRange[1]
+            );
+        })
+        .map((book) => ({ title: book.title, author: book.author }));
 }
 const books = [
     {
@@ -257,9 +257,10 @@ function createInventorySystem() {
         items.push(item);
     };
     const removeItem = function (item) {
-        items = items.filter(function (existingItem) {
-            return existingItem !== item;
-        });
+        const index = items.indexOf(item);
+        if (index !== -1) {
+            items.splice(index, 1);
+        }
     };
     const getItems = function () {
         return items.map(function (item) {
@@ -280,7 +281,7 @@ const items = inventorySystem.getItems();
 console.log(items);
 
 inventorySystem.removeItem("Apple");
-const updatedItems = inventorySystem.getItems();
+let updatedItems = inventorySystem.getItems();
 console.log(updatedItems);
 
 // Problem 4
@@ -354,3 +355,21 @@ function checkWinner(board) {
 const board3x3 = ["X", "O", "X", "X", "X", "O", "", "O", "X"];
 const winner3x3 = checkWinner(board3x3);
 console.log(winner3x3);
+
+function checkWinner(board, size) {
+    if (board.length === size * size) {
+        throw new Error("Enter enough Values");
+    }
+    for (let i = 0; i < size; i++) {
+        const row = [];
+        const col = [];
+        const diag1 = [];
+        const diag2 = [];
+        for (let j = 0; j < size; j++) {
+            row.push(board[i * size + j]);
+            col.push(board[j * size + i]);
+            diag1.push(board[j * size + j]);
+            diag2.push(board[j * size + (size - j - 1)]);
+        }
+    }
+}
