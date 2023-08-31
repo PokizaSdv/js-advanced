@@ -1,0 +1,15 @@
+{
+    "name": "npm-intro",
+    "version": "1.0.0",
+    "description": "this is simple npm-intro",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "author": "Pokiza",
+    "license": "ISC",
+    "dependencies": {
+        "pluralize": "^8.0.0"
+    }
+}
