@@ -20,7 +20,7 @@ class DataAnalyzer {
     }
 
     updateAll(data) {
-        fs.writeFileSync("data.json", JSON.stringify(data, null, 2));
+        fs.writeFileSync("data.json", JSON.stringify(data));
     }
     assignUniqueIds() {
         const content = this.read();
