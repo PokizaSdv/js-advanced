@@ -1,0 +1,38 @@
+// Method: .forEach
+// Intro
+// The forEach method is employed to execute a provided function once for each element in an array. Unlike traditional loops, forEach deals with a callback function, granting a more functional programming approach.
+
+// Structure
+// The basic syntax of the forEach method is as follows:
+
+array.forEach(function (element, index, array) {
+    // code block to be executed
+});
+// The parameters in the callback function are:
+
+// element: The current value being processed in the array.
+// index: The index of the current value being processed in the array (optional).
+// array: The array that forEach was called upon (optional).
+// Examples
+// Simple Iteration
+const numbers = [5, 10, 15];
+numbers.forEach(function (number) {
+    console.log(number);
+});
+// Output: 5, 10, 15
+// Using Element, Index, and Array
+const fruits = ["apple", "banana", "cherry"];
+fruits.forEach(function (fruit, index, array) {
+    console.log(`Fruit ${index + 1} of ${array.length} is ${fruit}`);
+});
+// Output:
+// Fruit 1 of 3 is apple
+// Fruit 2 of 3 is banana
+// Fruit 3 of 3 is cherry
+
+// Caveats
+// No Break or Continue
+// In traditional loops, you have the ability to break out of the loop or continue to the next iteration. However, with forEach, these are not possible. If you need to exit early, you must use a different looping mechanism.
+
+// Return Value
+// The forEach method returns undefined. Returning a value from the callback function will not exit the loop or have any impact on the execution of forEach.
