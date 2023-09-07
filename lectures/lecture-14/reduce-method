@@ -1,0 +1,92 @@
+// Method: .reduce
+// Intro
+// The reduce method takes an array and condenses it into a single value by executing a specific operation on each element. The method applies a function (reducer) to each element, using an accumulator to store the result as it progresses through the array. The accumulator can start with an initial value, or if omitted, the first element of the array is used.
+
+// Here is the general form:
+
+// array.reduce(reducingFunction, initialValue);
+// The reducer function is crucial and is composed of four parameters:
+
+// Accumulator: Holds the accumulated results.
+// Current Value: The current element processed in the array.
+// Current Index: The index of the current element processed in the array.
+// Array: The array on which reduce was called.
+// Summing Array Elements
+// Summing Numbers Using Classic Loops
+let numbers = [10, 20, 30];
+let sum = 0;
+
+for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+}
+console.log(sum); // Outputs 60
+
+// Summing Numbers Using Reduce
+let numbers1 = [10, 20, 30];
+let sum1 = numbers.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+);
+
+console.log(sum1); // Outputs 60
+// Counting Characters in a String
+// Using Classic Loops
+let str = "aabcc";
+let charCount = {};
+
+for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    if (charCount[str[i]]) {
+        charCount[char]++;
+    } else {
+        charCount[char] = 0;
+    }
+}
+console.log(charCount); // Outputs {a: 2, b: 1, c: 2}
+// B. Using Reduce
+let str1 = "aabcc";
+let charCount1 = str.split("").reduce((acc, char) => {
+    if (acc[char]) {
+        acc[char]++;
+    } else {
+        acc[char] = 0;
+    }
+    return acc;
+}, {});
+console.log(charCount1); // Outputs {a: 2, b: 1, c: 2}
+// Summing Sold Items Over Three Months
+// Consider an array of objects, where each object represents the items sold in a month.
+
+// A. Using Classic Loops
+let sales = [
+    { books: 5, pens: 10 },
+    { books: 3, pens: 15 },
+    { books: 7, pens: 20 }
+];
+
+let totalSales = { books: 0, pens: 0 };
+
+for (let i = 0; i < sales.length; i++) {
+    totalSales.books += sales[i].books;
+    totalSales.pens += sales[i].pens;
+}
+console.log(totalSales); // Outputs {books: 15, pens: 45}
+// B. Using Reduce
+let sales1 = [
+    { books: 5, pens: 10 },
+    { books: 3, pens: 15 },
+    { books: 7, pens: 20 }
+];
+
+let totalSales1 = sales1.reduce(
+    (accumulator, currentValue) => {
+        accumulator.books += currentValue.books;
+        accumulator.pens += currentValue.pens;
+        return accumulator;
+    },
+    { books: 0, pens: 0 }
+);
+
+console.log(totalSales1); // Outputs {books: 15, pens: 45}
+// Conclusion
+// The reduce method is a powerful tool in modern programming, enabling us to perform complex operations on arrays without the need for multiple loops or temporary variables. By understanding its underlying theory and leveraging its capabilities, it's possible to write concise and clear code for a wide range of applications, from simple summations to detailed object manipulation. As demonstrated in the above examples, transitioning from loops to reduce can lead to cleaner code and offer an insight into a more functional programming paradigm.
